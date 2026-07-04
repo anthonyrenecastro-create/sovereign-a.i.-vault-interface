@@ -1,0 +1,13 @@
+bundle_built_at=2026-07-04T20:50:26+00:00
+repo_source=/workspaces/sovereign-a.i.-vault-interface
+app_path=/workspaces/sovereign-a.i.-vault-interface/portable-kit/thumbdrive/app
+models_path=/workspaces/sovereign-a.i.-vault-interface/portable-kit/thumbdrive/models
+system_data_path=/workspaces/sovereign-a.i.-vault-interface/portable-kit/thumbdrive/data/system
+vector_data_path=/workspaces/sovereign-a.i.-vault-interface/portable-kit/thumbdrive/data/vector
+documents_path=/workspaces/sovereign-a.i.-vault-interface/portable-kit/thumbdrive/data/documents
+conversations_path=/workspaces/sovereign-a.i.-vault-interface/portable-kit/thumbdrive/data/conversations
+exports_path=/workspaces/sovereign-a.i.-vault-interface/portable-kit/thumbdrive/data/exports
+logs_path=/workspaces/sovereign-a.i.-vault-interface/portable-kit/thumbdrive/data/logs
+cache_path=/workspaces/sovereign-a.i.-vault-interface/portable-kit/thumbdrive/cache
+model_size_gb=0
+model_status=missing

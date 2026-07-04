@@ -1,0 +1,28 @@
+{
+  "assistants": [
+    {
+      "id": "re-genesis",
+      "name": "Re-Genesis",
+      "description": "Primary multi-tool workspace",
+      "model": "reasoning"
+    },
+    {
+      "id": "aetherium",
+      "name": "Aetherium",
+      "description": "Dashboard and quick insights",
+      "model": "fast"
+    },
+    {
+      "id": "amaterasu",
+      "name": "Amaterasu",
+      "description": "Document-centered workflows",
+      "model": "reasoning"
+    },
+    {
+      "id": "powercoder-z",
+      "name": "PowerCoder-Z",
+      "description": "Administrator and coding workflows",
+      "model": "coder"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Aetherium Interface",
+  "description": "A futuristic dashboard to visualize and interact with the Aetherium Symbolic Predictive Intelligence engine. It features a command console, a cognitive state visualizer, and system control panels.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

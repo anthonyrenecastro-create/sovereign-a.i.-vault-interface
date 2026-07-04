@@ -1,0 +1,19 @@
+{
+  "events": [
+    {
+      "timestamp": "2026-07-04T18:57:09.884953+00:00",
+      "action": "bootstrap_admin_created",
+      "actor": {
+        "username": "system",
+        "role": "system"
+      },
+      "target": {
+        "username": "admin"
+      },
+      "changes": {
+        "role": "admin",
+        "disabled": false
+      }
+    }
+  ]
+}
