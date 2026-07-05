@@ -7,10 +7,10 @@ source "$SCRIPT_DIR/common.sh"
 load_runtime_env
 
 REQUIRED_MODELS=(
-  "${OLLAMA_MODEL_DEFAULT:-gemma3:4b}"
+  "${OLLAMA_MODEL_DEFAULT:-gemma4:2b}"
   "${OLLAMA_MODEL_REASONING:-qwen2.5:7b}"
-  "${OLLAMA_MODEL_CODER:-qwen2.5:7b}"
-  "${OLLAMA_MODEL_FAST:-gemma3:4b}"
+  "${OLLAMA_MODEL_CODER:-qwen2.5-coder:7b}"
+  "${OLLAMA_MODEL_FAST:-gemma4:2b}"
   "${OLLAMA_MODEL_EMBEDDING:-nomic-embed-text}"
 )
 

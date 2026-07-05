@@ -11,6 +11,7 @@ interface Props {
   onAttachFiles: (files: FileList) => Promise<void>;
   attachedFiles: string[];
   retrievedContext: string[];
+  activeModel: string;
 }
 
 export default function UnifiedAssistantPage({
@@ -23,6 +24,7 @@ export default function UnifiedAssistantPage({
   onAttachFiles,
   attachedFiles,
   retrievedContext,
+  activeModel,
 }: Props) {
   const [draft, setDraft] = useState("");
   const [attachBusy, setAttachBusy] = useState(false);
@@ -74,6 +76,8 @@ export default function UnifiedAssistantPage({
           ))}
         </select>
         <p className="status-text">{activeAssistant?.description || "Select a mode"}</p>
+        <p className="status-text">Execution path: browser to backend api to local ollama runtime</p>
+        <p className="status-text">Active served model: {activeModel}</p>
 
         <label className="status-text">Attach files for retrieval context</label>
         <input type="file" multiple onChange={attach} />
@@ -97,7 +101,7 @@ export default function UnifiedAssistantPage({
               <p>{turn.content}</p>
             </article>
           ))}
-          {busy && <p className="thinking">Thinking locally through Ollama...</p>}
+          {busy && <p className="thinking">Backend api is requesting local Ollama inference...</p>}
         </div>
 
         <form onSubmit={submit} className="composer">

@@ -82,6 +82,7 @@ rsync -av --delete \
   --exclude '*.pyc' \
   --exclude 'frontend/node_modules' \
   --exclude 'frontend/dist' \
+  --exclude 'extracted' \
   --exclude 'portable-kit/thumbdrive' \
   --exclude 'portable-kit/thumbdrive-template' \
   "$REPO_DIR/" "$OUT_DIR/app/"
@@ -100,7 +101,7 @@ if [[ -n "$KNOWLEDGE_SRC" ]]; then
   fi
 else
   if [[ -d "$REPO_DIR/extracted" ]]; then
-    log "Auto-seeding extracted knowledge sources"
+    log "Auto-seeding extracted knowledge sources (documents only, not runtime app code)"
     mkdir -p "$OUT_DIR/data/documents/source-extracted"
     rsync -av "$REPO_DIR/extracted/" "$OUT_DIR/data/documents/source-extracted/"
   fi

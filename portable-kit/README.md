@@ -2,6 +2,46 @@
 
 This folder is designed to run from a USB flash drive as an offline-first, online-assisted deployment package.
 
+## Source-of-Truth Policy
+
+Live runtime source folders are:
+
+- `frontend/`
+- `backend/`
+- `portable-kit/`
+- `tools/emergency_console/`
+
+`extracted/` is archive/reference-only and is not copied into executable app payloads.
+When auto-seeded, it is copied only into `data/documents/source-extracted` for retrieval context.
+
+## Deterministic USB Flow v1
+
+Use `./scripts/flow_v1.sh` to execute the fixed sequence:
+
+1. build
+2. verify
+3. export
+4. deploy
+5. launch
+
+Example:
+
+```bash
+./scripts/flow_v1.sh build --bundle-dir /tmp/sovereign-thumbdrive --model-source ~/.ollama/models --require-model-gb 12
+./scripts/flow_v1.sh verify --bundle-dir /tmp/sovereign-thumbdrive --require-model-gb 12
+./scripts/flow_v1.sh export --bundle-dir /tmp/sovereign-thumbdrive --export-dir /tmp
+./scripts/flow_v1.sh deploy --export-dir /tmp --target-dir /tmp/sovereign-thumbdrive-target --require-model-gb 12
+./scripts/flow_v1.sh launch
+```
+
+Validation helpers:
+
+```bash
+./scripts/flow_v1.sh runtime
+./scripts/flow_v1.sh ollama
+./scripts/flow_v1.sh retrieval
+```
+
 ## What This Kit Covers
 
 - Unified web interface and backend orchestration
@@ -165,10 +205,10 @@ Pull missing models when internet is available:
 Pull a specific model tag (example):
 
 ```bash
-./scripts/model_manager.sh pull-model gemma3:4b --install
+./scripts/model_manager.sh pull-model gemma4:2b --install
 ```
 
-If your local registry uses a different tag, replace `gemma3:4b` with the exact model name.
+If your local registry uses a different tag, replace `gemma4:2b` with the exact model name.
 
 Install Ollama and pull (if CLI missing and internet available):
 

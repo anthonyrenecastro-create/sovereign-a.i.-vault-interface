@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { getHealth, getIndexStats, type IndexStats } from "../lib/api";
+import { getApiBase, getHealth, getIndexStats, type IndexStats } from "../lib/api";
 
 interface Props {
   activeAssistantName: string;
+  activeModel: string;
   onQuickAction: (target: "assistant" | "library" | "search" | "admin") => void;
 }
 
-export default function DashboardPage({ activeAssistantName, onQuickAction }: Props) {
+export default function DashboardPage({ activeAssistantName, activeModel, onQuickAction }: Props) {
   const [health, setHealth] = useState("unknown");
   const [stats, setStats] = useState<IndexStats | null>(null);
   const [loading, setLoading] = useState(false);
@@ -38,8 +39,8 @@ export default function DashboardPage({ activeAssistantName, onQuickAction }: Pr
             <strong>{health}</strong>
           </article>
           <article>
-            <span>Model Status</span>
-            <strong>{health === "ok" ? "reachable" : "unreachable"}</strong>
+            <span>Inference Route</span>
+            <strong>{health === "ok" ? "backend api -> ollama" : "unavailable"}</strong>
           </article>
           <article>
             <span>Storage Chunks</span>
@@ -48,6 +49,10 @@ export default function DashboardPage({ activeAssistantName, onQuickAction }: Pr
           <article>
             <span>Active Assistant</span>
             <strong>{activeAssistantName}</strong>
+          </article>
+          <article>
+            <span>Active Served Model</span>
+            <strong>{activeModel}</strong>
           </article>
         </div>
       </article>
@@ -66,6 +71,10 @@ export default function DashboardPage({ activeAssistantName, onQuickAction }: Pr
           <article>
             <span>Embedding Model</span>
             <strong>{stats?.embedding_model ?? "n/a"}</strong>
+          </article>
+          <article>
+            <span>Backend API Base</span>
+            <strong>{getApiBase()}</strong>
           </article>
         </div>
       </article>

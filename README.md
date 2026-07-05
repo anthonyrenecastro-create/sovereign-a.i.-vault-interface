@@ -2,6 +2,33 @@
 
 This repository now contains a unified offline-first platform that merges the strongest patterns from Aetherium, Amaterasu, PowerCoder-Z, and Re-Genesis into one system.
 
+## Production Source Of Truth
+
+Live production folders:
+
+- `frontend/`
+- `backend/`
+- `portable-kit/`
+- `tools/emergency_console/`
+
+Archive/reference-only folders:
+
+- `extracted/`
+- duplicated thumbdrive reference payloads from generated bundles
+
+See `SOURCE_OF_TRUTH.md` for policy details.
+
+## v1 Architecture Lock
+
+Runtime path is fixed to:
+
+- Backend API: `127.0.0.1:8000`
+- Frontend UI: `127.0.0.1:5173`
+- Ollama runtime: `127.0.0.1:11434`
+- Emergency console: optional separate app under `tools/emergency_console/`
+
+Detailed stack and deterministic workflow are documented in `ARCHITECTURE_V1.md`.
+
 ## What Changed
 
 - Replaced cloud Gemini coupling with a local orchestration API that routes to Ollama.
@@ -142,9 +169,9 @@ Offline-first bootstrap (no internet/model pull):
 Install and start Ollama on the Sovereign Vault host machine, then pull models:
 
 ```bash
-ollama pull gemma3:4b
+ollama pull gemma4:2b
 ollama pull qwen2.5:7b
-ollama pull mistral:7b
+ollama pull qwen2.5-coder:7b
 ollama pull nomic-embed-text
 ```
 

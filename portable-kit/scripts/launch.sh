@@ -27,6 +27,22 @@ wait_backend() {
   return 1
 }
 
+wait_frontend() {
+  local timeout_seconds="${1:-45}"
+  local elapsed=0
+  local health_url="http://127.0.0.1:${FRONTEND_PORT:-5173}/api/health"
+
+  while [[ "$elapsed" -lt "$timeout_seconds" ]]; do
+    if curl -sS -m 3 "$health_url" >/dev/null 2>&1; then
+      return 0
+    fi
+    sleep 1
+    elapsed=$((elapsed + 1))
+  done
+
+  return 1
+}
+
 index_local_documents() {
   if [[ "${SOVEREIGN_AUTO_INDEX_LOCAL_DOCS:-1}" != "1" ]]; then
     log "Skipping local document indexing (SOVEREIGN_AUTO_INDEX_LOCAL_DOCS=${SOVEREIGN_AUTO_INDEX_LOCAL_DOCS:-0})"
@@ -68,7 +84,7 @@ start_backend() {
 start_frontend() {
   log "Starting frontend"
   cd "$FRONTEND_DIR"
-  nohup npm run dev -- --host 0.0.0.0 --port "${FRONTEND_PORT:-5173}" > "$FRONTEND_LOG" 2>&1 &
+  nohup npm run dev -- --host 0.0.0.0 --port "${FRONTEND_PORT:-5173}" --strictPort > "$FRONTEND_LOG" 2>&1 &
   echo $! > "$FRONTEND_PID_FILE"
 }
 
@@ -90,7 +106,12 @@ else
   warn "Backend did not become healthy in time; skipping auto-index on this launch"
 fi
 start_frontend
-sleep 2
+if wait_frontend 45; then
+  log "Frontend health check passed"
+else
+  err "Frontend did not become healthy on port ${FRONTEND_PORT:-5173}. Check $FRONTEND_LOG"
+  exit 1
+fi
 open_browser
 
 log "Services launched"

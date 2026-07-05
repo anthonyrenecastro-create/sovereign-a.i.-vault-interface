@@ -20,7 +20,7 @@ const starterTurns: Turn[] = [
   {
     role: "assistant",
     content:
-      "Sovereign Vault local intelligence is online. Select a mode and ask your first question.",
+      "Sovereign Vault is online. UI requests route through the backend API, which executes models in local Ollama runtime.",
   },
 ];
 
@@ -35,6 +35,7 @@ export default function App() {
     "powercoder-z": [...starterTurns],
   });
   const [retrievedContext, setRetrievedContext] = useState<string[]>([]);
+  const [lastModelByAssistant, setLastModelByAssistant] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [attachedFiles, setAttachedFiles] = useState<string[]>([]);
@@ -79,6 +80,7 @@ export default function App() {
         history: turns,
         use_retrieval: true,
       });
+      setLastModelByAssistant((current) => ({ ...current, [activeId]: result.model }));
       setRetrievedContext(result.retrieved_context);
       setTurnsByAssistant((current) => ({
         ...current,
@@ -133,7 +135,7 @@ export default function App() {
           </div>
           <div>
             <h1>AETHERIUM VAULT</h1>
-            <p>Sovereign offline intelligence substrate</p>
+            <p>Frontend UI + local backend API + Ollama runtime</p>
           </div>
         </div>
 
@@ -191,6 +193,7 @@ export default function App() {
       {activeScreen === "dashboard" && (
         <DashboardPage
           activeAssistantName={activeAssistant?.name || "N/A"}
+          activeModel={lastModelByAssistant[activeId] || "n/a"}
           onQuickAction={(target) => {
             if (target === "assistant") {
               setActiveScreen("assistant");
@@ -219,6 +222,7 @@ export default function App() {
           onAttachFiles={attachFiles}
           attachedFiles={attachedFiles}
           retrievedContext={retrievedContext}
+          activeModel={lastModelByAssistant[activeId] || "n/a"}
         />
       )}
 

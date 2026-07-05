@@ -121,16 +121,17 @@ save_runtime_env() {
   local cpu_cores="${3:-1}"
   local hw_tier="${4:-micro-pc}"
 
-  local default_model="gemma3:4b"
+  local default_model="gemma4:2b"
   local reasoning_model="qwen2.5:7b"
-  local coder_model="qwen2.5:7b"
-  local fast_model="gemma3:4b"
+  local coder_model="qwen2.5-coder:7b"
+  local fast_model="gemma4:2b"
 
   if [[ "$min_mode" == "1" ]]; then
-    default_model="gemma3:1b"
-    reasoning_model="gemma3:1b"
-    coder_model="gemma3:1b"
-    fast_model="gemma3:1b"
+    # Field mode: keep the whole path on lightweight Gemma 4.
+    default_model="gemma4:2b"
+    reasoning_model="gemma4:2b"
+    coder_model="gemma4:2b"
+    fast_model="gemma4:2b"
   fi
 
   cat > "$ENV_FILE" <<EOF
