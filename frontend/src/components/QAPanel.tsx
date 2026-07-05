@@ -42,7 +42,7 @@ const INITIAL_STEPS: StepState[] = [
 export default function QAPanel({ activeAssistantId, legacyAdminToken }: Props) {
   const [steps, setSteps] = useState<StepState[]>(INITIAL_STEPS);
   const [running, setRunning] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [autoSkipAdminWithoutToken, setAutoSkipAdminWithoutToken] = useState(true);
   const [runLabel, setRunLabel] = useState("Not run yet");
   const apiBaseDetected = getApiBase();
@@ -225,6 +225,12 @@ export default function QAPanel({ activeAssistantId, legacyAdminToken }: Props) 
           </label>
         </div>
         <div className="qa-actions">
+          <div className="qa-summary qa-summary-inline" aria-label="QA summary">
+            <span>Pass: {summary.pass}</span>
+            <span>Fail: {summary.fail}</span>
+            <span>Skip: {summary.skip}</span>
+            <span>{summary.runningNow ? "In progress" : "Idle"}</span>
+          </div>
           <button type="button" onClick={() => setCollapsed((current) => !current)}>
             {collapsed ? "Expand" : "Collapse"}
           </button>
@@ -246,12 +252,6 @@ export default function QAPanel({ activeAssistantId, legacyAdminToken }: Props) 
               </span>
             </article>
           ))}
-          <footer className="qa-summary">
-            <span>Pass: {summary.pass}</span>
-            <span>Fail: {summary.fail}</span>
-            <span>Skip: {summary.skip}</span>
-            <span>{summary.runningNow ? "In progress" : "Idle"}</span>
-          </footer>
         </div>
       )}
     </section>

@@ -1,0 +1,26 @@
+{
+  "archive_id": "standard-local-20gb",
+  "label": "Standard Local Models 20GB",
+  "type": "ollama_model_store",
+  "archive_file": "ollama-models-20gb.tar",
+  "minimum_required_gb": 20,
+  "source_example_windows": "C:/Users/antho/.ollama/models",
+  "expected_paths": [
+    "blobs/",
+    "manifests/"
+  ],
+  "models": [
+    {
+      "role": "general_assistant",
+      "model_name": "gemma3:4b"
+    },
+    {
+      "role": "document_analyst",
+      "model_name": "gemma3:4b"
+    },
+    {
+      "role": "field_operations",
+      "model_name": "gemma3:4b"
+    }
+  ]
+}

@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 @dataclass(frozen=True)
@@ -9,10 +12,10 @@ class Settings:
     host: str = os.getenv("SOVEREIGN_HOST", "0.0.0.0")
     port: int = int(os.getenv("SOVEREIGN_PORT", "8000"))
     ollama_base_url: str = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
-    model_default: str = os.getenv("OLLAMA_MODEL_DEFAULT", "gemma4:2b")
-    model_reasoning: str = os.getenv("OLLAMA_MODEL_REASONING", "qwen2.5:7b")
-    model_coder: str = os.getenv("OLLAMA_MODEL_CODER", "qwen2.5-coder:7b")
-    model_fast: str = os.getenv("OLLAMA_MODEL_FAST", "gemma4:2b")
+    model_default: str = os.getenv("OLLAMA_MODEL_DEFAULT", "gemma3:4b")
+    model_reasoning: str = os.getenv("OLLAMA_MODEL_REASONING", "gemma3:4b")
+    model_coder: str = os.getenv("OLLAMA_MODEL_CODER", "gemma3:4b")
+    model_fast: str = os.getenv("OLLAMA_MODEL_FAST", "gemma3:4b")
     model_embedding: str = os.getenv("OLLAMA_MODEL_EMBEDDING", "nomic-embed-text")
     ollama_chat_timeout_seconds: int = int(os.getenv("OLLAMA_CHAT_TIMEOUT_SECONDS", "120"))
     ollama_num_ctx: int = int(os.getenv("OLLAMA_NUM_CTX", "1024"))

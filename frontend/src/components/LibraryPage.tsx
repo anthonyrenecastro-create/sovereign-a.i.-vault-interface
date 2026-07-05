@@ -52,7 +52,17 @@ export default function LibraryPage({ items, onAddItem, onAsk, lastAnswer }: Pro
     if (!message) {
       return;
     }
-    await onAsk(message);
+
+    const analysisPrompt = selected
+      ? [
+          `Document title: ${selected.title}`,
+          selected.preview ? `Document preview:\n${selected.preview.slice(0, 4000)}` : "Document preview: unavailable",
+          "Answer the user's question using the document context above. Use a structured format with summary, key findings, and any caveats.",
+          `User question: ${message}`,
+        ].join("\n\n")
+      : message;
+
+    await onAsk(analysisPrompt);
     setAskDraft("");
   };
 
@@ -60,6 +70,9 @@ export default function LibraryPage({ items, onAddItem, onAsk, lastAnswer }: Pro
     <section className="feature-grid library-grid">
       <article className="dashboard-card">
         <h2>Library</h2>
+        <p className="status-text">
+          Upload a file to index it locally, then ask questions grounded in the extracted document text.
+        </p>
         <input type="file" onChange={onUpload} />
         {uploadBusy && <p className="status-text">Uploading and indexing...</p>}
         {!uploadBusy && uploadStatus && <p className="status-text">{uploadStatus}</p>}
@@ -80,7 +93,7 @@ export default function LibraryPage({ items, onAddItem, onAsk, lastAnswer }: Pro
         {selected ? (
           <>
             <p className="status-text">{selected.title}</p>
-            <pre className="terminal-output">{selected.preview || "No preview available."}</pre>
+            <pre className="terminal-output terminal-output-large">{selected.preview || "No preview available."}</pre>
           </>
         ) : (
           <p className="status-text">Select a document to preview.</p>
@@ -89,6 +102,10 @@ export default function LibraryPage({ items, onAddItem, onAsk, lastAnswer }: Pro
 
       <article className="dashboard-card">
         <h2>Ask Questions On Documents</h2>
+        <p className="status-text">
+          The selected document preview is injected into the prompt so the answer can be more
+          grounded and structured.
+        </p>
         <form onSubmit={ask} className="composer">
           <textarea
             value={askDraft}
@@ -100,7 +117,9 @@ export default function LibraryPage({ items, onAddItem, onAsk, lastAnswer }: Pro
             Ask
           </button>
         </form>
-        <pre className="terminal-output">{lastAnswer || "Answer output will appear here."}</pre>
+        <pre className="terminal-output terminal-output-large analysis-output">
+          {lastAnswer || "Answer output will appear here."}
+        </pre>
       </article>
     </section>
   );

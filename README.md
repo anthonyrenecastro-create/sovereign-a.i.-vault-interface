@@ -169,11 +169,11 @@ Offline-first bootstrap (no internet/model pull):
 Install and start Ollama on the Sovereign Vault host machine, then pull models:
 
 ```bash
-ollama pull gemma4:2b
-ollama pull qwen2.5:7b
-ollama pull qwen2.5-coder:7b
+ollama pull gemma3:4b
 ollama pull nomic-embed-text
 ```
+
+`gemma3:4b` is the single chat model used for default, reasoning, coder, and fast roles in the current portable config.
 
 ### 2) Start Backend
 

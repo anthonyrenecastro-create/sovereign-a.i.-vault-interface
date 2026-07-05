@@ -12,15 +12,15 @@
   "models": [
     {
       "role": "general_assistant",
-      "model_name": "llama3.1:8b"
+      "model_name": "gemma3:4b"
     },
     {
       "role": "document_analyst",
-      "model_name": "qwen2.5:7b"
+      "model_name": "gemma3:4b"
     },
     {
       "role": "field_operations",
-      "model_name": "mistral:7b"
+      "model_name": "gemma3:4b"
     }
   ]
 }

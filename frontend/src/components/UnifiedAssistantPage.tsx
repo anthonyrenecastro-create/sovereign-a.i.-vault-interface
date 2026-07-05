@@ -94,6 +94,9 @@ export default function UnifiedAssistantPage({
 
       <article className="dashboard-card">
         <h2>Unified Chat Workspace</h2>
+        <p className="status-text">
+          Responses are shown in a larger scrollable transcript so longer local reasoning stays visible.
+        </p>
         <div className="chat-log">
           {turns.map((turn, index) => (
             <article key={`${turn.role}-${index}`} className={`bubble ${turn.role}`}>
@@ -104,12 +107,12 @@ export default function UnifiedAssistantPage({
           {busy && <p className="thinking">Backend api is requesting local Ollama inference...</p>}
         </div>
 
-        <form onSubmit={submit} className="composer">
+        <form onSubmit={submit} className="composer composer-expanded">
           <textarea
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
             placeholder="Ask the selected assistant..."
-            rows={3}
+            rows={5}
           />
           <button type="submit" disabled={busy || !draft.trim()}>
             Send
@@ -118,7 +121,7 @@ export default function UnifiedAssistantPage({
 
         {retrievedContext.length > 0 && (
           <aside className="retrieval-box">
-            <h4>Retrieved Context</h4>
+            <h4>Retrieved Local Context</h4>
             <ul>
               {retrievedContext.map((item, idx) => (
                 <li key={idx}>{item}</li>

@@ -3,7 +3,7 @@ import { searchIndex, type IndexSearchResult } from "../lib/api";
 
 export default function SearchPage() {
   const [query, setQuery] = useState("");
-  const [mode, setMode] = useState<"semantic" | "keyword">("semantic");
+  const [mode, setMode] = useState<"semantic" | "keyword">("keyword");
   const [results, setResults] = useState<IndexSearchResult[]>([]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -32,6 +32,10 @@ export default function SearchPage() {
     <section className="feature-grid">
       <article className="dashboard-card">
         <h2>Search</h2>
+        <p className="status-text">
+          Keyword search is the fastest way to surface the local knowledge base. Use semantic mode
+          when you want fuzzier matching.
+        </p>
         <form onSubmit={run} className="admin-controls">
           <input
             value={query}
@@ -59,7 +63,9 @@ export default function SearchPage() {
               <p>{result.content}</p>
             </article>
           ))}
-          {results.length === 0 && <p className="status-text">No results yet.</p>}
+          {results.length === 0 && (
+            <p className="status-text">No results yet. Try keyword mode or index a document first.</p>
+          )}
         </div>
       </article>
     </section>
